@@ -1,0 +1,84 @@
+#set($marsHome="${marsHome}")
+#set($firstName="${firstName}")
+#set($privacyPolicy="${privacyPolicy}")
+#set($termsAndCondition="${termsAndCondition}")
+#set($unSubscribe="${unSubscribe}")
+#set($mailTo="${mailTo}")
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MARS.Com | Email| Template</title>
+
+<!--css-->
+<style type="text/css">
+body {font-family:Arial, Helvetica, sans-serif; font-size:12px; padding:0px; margin:0px; background:#000000;}
+table {font-size:12px; }
+.logo{display:block; background:url(images/logo_3.png) no-repeat 0 0; margin:8px 0 0 0; width:294px; height:58px;}
+.animatedButton2 {
+background: #4a6ecc; display:inline; padding: 5px 30px 5px 30px; font-family:Rockwell; font-size: 25px; line-height:100%; color:#FFFFFF; text-decoration:none;
+font-weight:normal;
+}
+p{font-size:13px; margin-top:0px; padding-top:7px; font-family:'Droid Sans'; line-height:150%;}
+h3{font-size:14px; font-weight:bold; margin-bottom:-5px; padding-bottom:0px; font-family:'Droid Sans';}
+.animatedButton2:hover{
+background:#2b468d; color:#d7dcea;
+}
+a { font-weight:bold; color:#2b468d; text-decoration:none; }
+a:hover {color:#4a6ecc;}
+
+</style>
+
+</head>
+<body>
+<!--Header-->
+<table align="center" width="600" border="0" cellspacing="0" cellpadding="0" style="height:100%;">
+  <tr>
+    <td valign="top" height="100%" bgcolor="#eceae6"> 
+	
+	
+
+ #parse("email-templates/common/header.vm")
+<!--Content-->
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"  >
+	<td valign="top" width="100%" style="padding-left:15px; padding-right:15px;">
+    <p align="center" style="font-size:25px; padding-top: 37px; font-family:'Droid Sans';">Thank you for joining and welcome to MARS!</p>
+   <p>You will find several important tools with information and recommendations to make your education and career decisions in one place, on MARS.  We recommend that you start with the following to make the most of your experience :</p>
+   
+   
+   <div  style="margin-left: 22px;">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="5%" align="left" valign="middle">
+	<img src="${marsHome}/static/images/w_email_1.png" border="0" align="absmiddle"  />	</td>
+    <td align="left" valign="top" style="padding-left:11px; padding-bottom:15px;"><h3>Complete your profile and �Get  Discovered�</h3>
+      <p>Universities (and companies) are looking for candidates  on MARS and a good profile  can help you �Get Discovered�. A complete profile also gives you personalized  recommendations and tailored content on your homepage. We will also recommend  people you should connect with, based on shared interests!&#13;</p></td>
+  </tr>
+  <tr>
+    <td align="left" valign="middle"><img src="${marsHome}/static/images/w_email_2.png" border="0" align="absmiddle"  /></td>
+    <td align="left" valign="top" style="padding-left:11px; padding-bottom:15px;"><h3>Ask questions, share thoughts and help  others</h3>
+      <p>Engage with experts and other folks on MARS by asking questions,  sharing your experiences and discussing possibilities. Help others and get help  on your top of mind issues�</p></td>
+  </tr>
+  <tr>
+    <td align="left" valign="middle"><img src="${marsHome}/static/images/w_email_3.png" border="0" align="absmiddle"  /></td>
+    <td align="left" valign="top" style="padding-left:11px; padding-bottom:15px;"><h3>Invite friends (and build your points)</h3>
+      <p>Share your experience on MARS with friends, classmates and colleagues. You earn  points for helping them, and get to use those for great rewards! Spread the  word�&#13;</p></td>
+  </tr>
+</table>
+</div>
+   
+   <p align="center" style="font-size:14px;">MARS has been designed, keeping YOU in focus. <br>
+     Its FREE to  use and we appreciate feedback! </p>
+   
+   <br>
+
+
+	</td>
+
+</table>
+<!--Footer-->
+ #parse("email-templates/common/footer.vm")
+</td>
+  </tr>
+</table>
+</body>
+</html>

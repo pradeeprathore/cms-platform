@@ -1,0 +1,123 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+	
+<!--	<http entry-point-ref="authenticationEntryPoint" use-expressions="true">-->
+<!--		<intercept-url pattern="/**" access="permitAll" />-->
+<!--		<custom-filter ref="authFilter" before="FORM_LOGIN_FILTER" />-->
+<!--	</http>-->
+
+	<global-method-security pre-post-annotations="enabled" />
+	
+	<http entry-point-ref="authenticationEntryPoint" use-expressions="true" create-session="stateless">
+		
+		<!-- No authentication required	-->
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/resetpasswordrequest" access="permitAll" />
+		<intercept-url pattern="/passwordreset" access="permitAll" />
+		<intercept-url pattern="/file/documents/**" access="permitAll" />
+		<intercept-url pattern="/countrys" access="permitAll" />
+		<intercept-url pattern="/**/states" access="permitAll" />
+		<intercept-url pattern="/user" access="permitAll" />
+		<intercept-url pattern="/patrika" access="permitAll" />
+		<intercept-url pattern="/fileuploads" access="permitAll" />
+		
+
+		<!-- for all authenticated users	-->
+		
+		
+				
+		<!-- for role lab user  -->
+		<intercept-url pattern="/diagnosisprescriptions/referedprescriptions/**" access="hasAnyRole('ROLE_LAB_USER')" />
+		
+		<!-- for role medical shop user  -->
+		<intercept-url pattern="/medicineprescriptions/referedmedicineprescriptions/**" access="hasAnyRole('ROLE_MEDICAL_SHOP_USER')" />
+		
+		<!-- for doctors only	-->
+		<intercept-url pattern="/medicineprescriptions/mark" access="hasAnyRole('ROLE_DOCTOR','ROLE_MEDICAL_SHOP_USER')" />
+		<intercept-url pattern="/patients/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/appointments/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/followups/**" access="hasAnyRole('ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/medicalcases/**" access="hasAnyRole('ROLE_CC_USER','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ADMIN','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/visits/attachment/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/visits/**" access="hasAnyRole('ROLE_CC_USER','ROLE_DOCTOR','ROLE_CLINIC_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/diagnosisprescriptions/**" access="hasAnyRole('ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT','ROLE_LAB_USER')" />
+		<intercept-url pattern="/medicineprescriptions/**" access="hasAnyRole('ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/accesstokens/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		
+		<intercept-url pattern="/clinics/bookable/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/clinics/myclinics/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/clinics/myclinicsbypatient/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/dashboard/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/statistics/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+
+		<intercept-url pattern="/favoritemedicalshops/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoritelabs/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoritesurgicalprocedures/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoritemedicines/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoriteDiseases/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoritediagnosis/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/favoritecomplains/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+
+		<intercept-url pattern="/surgicalprocedures/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/diagnosises/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_SYSTEM_ADMIN','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/diseases/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/allergys/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/medicines/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/complains/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/drugs/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/immunizations/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/specializations/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR', 'ROLE_SYSTEM_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		
+		<intercept-url pattern="/billings/**" access="hasAnyRole('ROLE_DOCTOR','ROLE_CLINIC_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/assistants/myprofile" access="hasAnyRole('ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />		
+		<intercept-url pattern="/doctorclinicassignments/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR', 'ROLE_SYSTEM_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/degrees/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR', 'ROLE_SYSTEM_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+		<intercept-url pattern="/schedules/**" access="hasAnyRole('ROLE_CC_USER','ROLE_CLINIC_ADMIN','ROLE_DOCTOR', 'ROLE_SYSTEM_ADMIN','ROLE_DOCTOR_ASSISTANT','ROLE_CLINIC_ASSISTANT')" />
+
+		<intercept-url pattern="/labReports/**" access="hasAnyRole('ROLE_LAB_USER','ROLE_DOCTOR')" />
+		<intercept-url pattern="/availablemedicaltests/**" access="hasAnyRole('ROLE_SYSTEM_ADMIN','ROLE_LAB_USER','ROLE_DOCTOR')" />
+		
+		<!-- for doctor user  -->
+		<intercept-url pattern="/assistants/**" access="hasAnyRole('ROLE_DOCTOR')" />
+
+		
+				<!-- for Clinic admin only	-->
+		<intercept-url pattern="/clinics/doctors/**" access="hasAnyRole('ROLE_CLINIC_ADMIN','ROLE_CLINIC_ASSISTANT')" />
+		
+		<!-- for system admin only	-->
+		<intercept-url pattern="/clinics/**" access="hasRole('ROLE_SYSTEM_ADMIN')" />
+		<intercept-url pattern="/fileuploads/**" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_SYSTEM_ADMIN')" />
+		<intercept-url pattern="/medicalshopuser/**" access="hasRole('ROLE_SYSTEM_ADMIN')" />
+		<intercept-url pattern="/labusers/**" access="hasRole('ROLE_SYSTEM_ADMIN')" />
+		<intercept-url pattern="/medicalshops/**" access="hasAnyRole('ROLE_SYSTEM_ADMIN','ROLE_DOCTOR')" />
+		
+		<!-- for both cc user and system admin -->
+		<intercept-url pattern="/doctors/**" access="hasAnyRole('ROLE_CC_USER', 'ROLE_SYSTEM_ADMIN')" />
+		
+		<!-- for both doctor and system admin only	-->
+		<intercept-url pattern="/labs/**" access="hasAnyRole('ROLE_SYSTEM_ADMIN','ROLE_DOCTOR')" />
+				
+
+		<intercept-url pattern="/**" access="isFullyAuthenticated()" />
+		
+		<custom-filter ref="authFilter" before="FORM_LOGIN_FILTER" />
+	</http>
+
+	<beans:bean id="authenticationEntryPoint"	class="com.ascent.cms.web.security.CustomAuthenticationEntryPoint" />
+
+	<beans:bean id="authFilter" class="com.ascent.cms.web.security.AuthFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+	</beans:bean>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="authProvider" />
+	</authentication-manager>
+
+	<beans:bean id="authProvider" class="com.ascent.cms.web.security.CustomAuthenticationProvider" />
+
+</beans:beans>

@@ -1,0 +1,259 @@
+package com.ascent.cms.services.impl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ascent.cms.core.ErrorCode;
+import com.ascent.cms.core.dao.MedicalCaseDAO;
+import com.ascent.cms.core.dao.MedicinePrescriptionDAO;
+import com.ascent.cms.core.dao.VisitDAO;
+import com.ascent.cms.core.domain.Degree;
+import com.ascent.cms.core.domain.DegreePassed;
+import com.ascent.cms.core.domain.DiagnosisPrescription;
+import com.ascent.cms.core.domain.Doctor;
+import com.ascent.cms.core.domain.MedicalCase;
+import com.ascent.cms.core.domain.MedicinePrescription;
+import com.ascent.cms.core.domain.Patient;
+import com.ascent.cms.core.domain.PrescribedDiagnosis;
+import com.ascent.cms.core.domain.PrescribedMedicine;
+import com.ascent.cms.core.domain.Visit;
+import com.ascent.cms.core.domain.medicalshop.MedicalShop;
+import com.ascent.cms.core.exception.ResourceNotFoundException;
+import com.ascent.cms.core.util.Assert;
+import com.ascent.cms.core.vo.DiagnosisPrescriptionVO;
+import com.ascent.cms.core.vo.DoctorVO;
+import com.ascent.cms.core.vo.ListResponse;
+import com.ascent.cms.core.vo.MedicalCaseVO;
+import com.ascent.cms.core.vo.MedicinePrescriptionVO;
+import com.ascent.cms.core.vo.PatientVO;
+import com.ascent.cms.core.vo.SearchCriteria;
+import com.ascent.cms.services.MedicinePrescriptionService;
+import com.ascent.cms.services.util.ServiceUtils;
+
+@Service
+@Transactional
+public class MedicinePrescriptionServiceImpl extends BaseServiceImpl implements MedicinePrescriptionService
+{
+
+    @Autowired
+    private MedicinePrescriptionDAO medicinePrescriptionDAO;
+
+    @Autowired
+    private MedicalCaseDAO medicalCaseDAO;
+
+    @Autowired
+    private VisitDAO visitDAO;
+
+    @Override
+    @Transactional(readOnly = true)
+    public ListResponse getByMedicalShop(MedicalShop medicalShop, SearchCriteria searchCriteria)
+    {
+	Assert.medicalShopNotNull(medicalShop);
+	Assert.searchCriteriaNotNull(searchCriteria);
+	ListResponse result = medicinePrescriptionDAO.findByMedicalShop(medicalShop, searchCriteria);
+	List<MedicinePrescriptionVO> medicinePrescriptionVOs = new ArrayList<MedicinePrescriptionVO>(result
+			.getAaData().size());
+		for (Object object : result.getAaData())
+		{
+		    MedicinePrescription current = (MedicinePrescription) object;
+		    Integer medicalCaseId = current.getVisit().getMedicalCase().getId();
+		    MedicalCase medicalCase = medicalCaseDAO.findMedicalCaseById(medicalCaseId);
+		    MedicinePrescriptionVO medicinePrescriptionVO = toMedicinePrescriptionVO(current, medicalCase, false);
+		    medicinePrescriptionVO.setFullfilled(current.isFullfilled());
+		    medicinePrescriptionVOs.add(medicinePrescriptionVO);
+		}
+		result.setAaData(medicinePrescriptionVOs);
+	return result;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("@customAuthManager.isPermitted('LEVEL3')")
+    public ListResponse getByDoctor(Doctor doctor, SearchCriteria searchCriteria)
+    {
+	Assert.doctorNotNull(doctor);
+	Assert.searchCriteriaNotNull(searchCriteria);
+
+	ListResponse result = medicinePrescriptionDAO.findByDoctor(doctor, searchCriteria);
+
+	@SuppressWarnings("unchecked")
+	List<MedicinePrescription> medicinePrescriptions = (List<MedicinePrescription>) result.getAaData();
+	List<MedicinePrescriptionVO> medicinePrescriptionVOs = Collections.emptyList();
+
+	if (CollectionUtils.isNotEmpty(medicinePrescriptions))
+	{
+	    List<Integer> visitIds = new ArrayList<Integer>(medicinePrescriptions.size());
+	    for (MedicinePrescription current : medicinePrescriptions)
+	    {
+		visitIds.add(current.getVisit().getId());
+	    }
+	    List<Visit> visits = visitDAO.findWithIds(visitIds);
+
+	    medicinePrescriptionVOs = new ArrayList<MedicinePrescriptionVO>(medicinePrescriptions.size());
+	    for (MedicinePrescription current : medicinePrescriptions)
+	    {
+		MedicinePrescriptionVO medicinePrescriptionVO = new MedicinePrescriptionVO();
+		medicinePrescriptionVO.setPrescriptionDate(current.getPrescriptionDate());
+		medicinePrescriptionVO.setId(current.getId());
+		for (PrescribedMedicine prescribedMedicine : current.getMedicines())
+		{
+		    prescribedMedicine.setMedicinePrescription(null);
+		}
+		medicinePrescriptionVO.setMedicines(current.getMedicines());
+		medicinePrescriptionVOs.add(medicinePrescriptionVO);
+
+		Visit visit = getVisit(visits, current);
+		if (visit != null)
+		{
+		    Patient patient = visit.getMedicalCase().getPatient();
+		    PatientVO patientVO = new PatientVO(patient.getId(), patient.getFirstName(), patient.getLastName());
+		    medicinePrescriptionVO.setPatient(patientVO);
+		    MedicalCaseVO medicalCase = new MedicalCaseVO(visit.getMedicalCase().getId(), visit
+			    .getMedicalCase().getName());
+		    medicinePrescriptionVO.setMedicalCase(medicalCase);
+		}
+	    }
+	}
+	result.setAaData(medicinePrescriptionVOs);
+	return result;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("@customAuthManager.isPermitted('LEVEL3')")
+    public MedicinePrescriptionVO getByVisit(Integer visitId, Doctor doctor)
+    {
+	Visit visit = getById(Visit.class, visitId);
+
+	MedicinePrescription medicinePrescription = medicinePrescriptionDAO.findByVisit(visit);
+	if (medicinePrescription == null)
+	{
+	    throw new ResourceNotFoundException(ErrorCode.ResourceNotFoundConstants.MEDICINE_PRESCRIPTION_NOT_FOUND);
+	}
+
+	Integer medicalCaseId = medicinePrescription.getVisit().getMedicalCase().getId();
+	MedicalCase medicalCase = medicalCaseDAO.findMedicalCaseById(medicalCaseId);
+	if (!ServiceUtils.isEquals(doctor, medicalCase.getDoctor()))
+	{
+	    throw new ResourceNotFoundException(ErrorCode.ResourceNotFoundConstants.MEDICINE_PRESCRIPTION_NOT_FOUND);
+	}
+	MedicinePrescriptionVO medicinePrescriptionVO = toMedicinePrescriptionVO(medicinePrescription, medicalCase);
+	return medicinePrescriptionVO;
+    }
+
+    private MedicinePrescriptionVO toMedicinePrescriptionVO(MedicinePrescription medicinePrescription,
+	    MedicalCase medicalCase)
+    {
+	MedicinePrescriptionVO medicinePrescriptionVO = new MedicinePrescriptionVO();
+
+	medicinePrescriptionVO.setId(medicinePrescription.getId());
+	medicinePrescriptionVO.setPrescriptionDate(medicinePrescription.getPrescriptionDate());
+
+	for (PrescribedMedicine prescribedMedicine : medicinePrescription.getMedicines())
+	{
+	    prescribedMedicine.setMedicinePrescription(null);
+	}
+
+	medicinePrescriptionVO.setMedicines(medicinePrescription.getMedicines());
+
+	Patient patient = medicalCase.getPatient();
+
+	PatientVO patientVO = new PatientVO(patient.getId(), patient.getFirstName(), patient.getLastName());
+	patientVO.setDateOfBirth(patient.getDateOfBirth());
+	medicinePrescriptionVO.setPatient(patientVO);
+
+	Doctor doctor = medicalCase.getDoctor();
+
+	DoctorVO doctorVO = new DoctorVO(doctor.getId(), doctor.getFirstName(), doctor.getLastName());
+	doctorVO.setHomePhone(doctor.getHomePhone());
+	doctorVO.setMobile(doctor.getMobile());
+	doctorVO.setEmail(doctor.getEmail());
+	doctorVO.setAddress(doctor.getAddress());
+	medicinePrescriptionVO.setDoctor(doctorVO);
+	
+	if(CollectionUtils.isNotEmpty(doctor.getDegreesPassed())){
+		Set<DegreePassed> degreeSet=new LinkedHashSet<DegreePassed>();
+		for(DegreePassed current:doctor.getDegreesPassed()){
+			degreeSet.add(new DegreePassed(new Degree(current.getDegree().getId(), current.getDegree().getName())));
+		}
+		doctorVO.setDegreesPassed(degreeSet);
+	}
+	
+	return medicinePrescriptionVO;
+    }
+
+    private Visit getVisit(List<Visit> visits, MedicinePrescription medicinePrescription)
+    {
+	Integer visitId = medicinePrescription.getVisit().getId();
+	for (Visit current : visits)
+	{
+	    if (current.getId().equals(visitId))
+	    {
+		return current;
+	    }
+	}
+	return null;
+    }
+    
+    private MedicinePrescriptionVO toMedicinePrescriptionVO(MedicinePrescription medicinePrescription,
+    	    MedicalCase medicalCase, boolean degreesRequired)
+        {
+    	MedicinePrescriptionVO medicinePrescriptionVO = new MedicinePrescriptionVO();
+
+    	medicinePrescriptionVO.setId(medicinePrescription.getId());
+    	medicinePrescriptionVO.setPrescriptionDate(medicinePrescription.getPrescriptionDate());
+
+    	for (PrescribedMedicine prescribedMedicine : medicinePrescription.getMedicines())
+    	{
+    		prescribedMedicine.setMedicinePrescription(null);
+    	}
+
+    	medicinePrescriptionVO.setMedicines(medicinePrescription.getMedicines());
+    	Patient patient = medicalCase.getPatient();
+
+    	PatientVO patientVO = new PatientVO(patient.getId(), patient.getFirstName(), patient.getLastName());
+    	patientVO.setDateOfBirth(patient.getDateOfBirth());
+    	medicinePrescriptionVO.setPatient(patientVO);
+
+    	Doctor doctor = medicalCase.getDoctor();
+
+    	DoctorVO doctorVO = new DoctorVO(doctor.getId(), doctor.getFirstName(), doctor.getLastName());
+
+
+    	if (degreesRequired)
+    	{
+    		doctorVO.setHomePhone(doctor.getHomePhone());
+    		doctorVO.setMobile(doctor.getMobile());
+    		doctorVO.setEmail(doctor.getEmail());
+    		doctorVO.setAddress(doctor.getAddress());
+    		
+    		doctorVO.setHomePhone(doctor.getHomePhone());
+    		doctorVO.setMobile(doctor.getMobile());
+    		doctorVO.setEmail(doctor.getEmail());
+    		doctorVO.setAddress(doctor.getAddress());
+    		
+    	    if (CollectionUtils.isNotEmpty(doctor.getDegreesPassed()))
+    	    {
+    		Set<DegreePassed> degreeSet = new LinkedHashSet<DegreePassed>();
+    		for (DegreePassed current : doctor.getDegreesPassed())
+    		{
+    		    degreeSet.add(new DegreePassed(new Degree(current.getDegree().getId(), current.getDegree()
+    			    .getName())));
+    		}
+    		doctorVO.setDegreesPassed(degreeSet);
+    	    }
+    	}
+
+    	medicinePrescriptionVO.setDoctor(doctorVO);
+    	return medicinePrescriptionVO;
+        }
+}

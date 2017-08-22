@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> mars.Com | Email| Template</title>
+<style>
+body{ font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:18px}
+a{text-decoration:none;}
+</style>
+</head>
+<body>
+<!--Header-->
+<table width="600" border="0" align="center">
+  <tr>
+    <td colspan="2" style="background:#000; color:#FFF; text-align:center; padding:10px; font-size:28px; font-weight:normal; text-decoration:none;">MARS</td>
+  </tr>
+   <tr>
+   		<td colspan="2" style="background:#e6f1fb; padding:0 20px">
+        	<p style="color:#0094ff; font-size:14px"> Your Medicine Prescription Report.</p>
+        </td>
+   </tr>
+</table>
+<!--Content-->
+<table width="596" border="0" align="center" style="background:#f4faff; margin-top:-2px; padding:30px; height:20px;">
+	<td width="100%">
+    <p>Dear Patient,</p>
+     It was a pleasure meeting with you at our clinic.Please feel free to let us know how we can serve you better.<br/>
+     Please find your Medicine Prescription Report attachment.
+    </td>
+
+</table>
+<!--Footer-->
+<table width="600" border="0" align="center" style="background:#f4faff; margin-top:-2px;">
+	<tr>
+    	<td align="right" style="background:#414141; color:#FFF; padding:5px;"></td>
+    </tr>
+
+</table>
+</body>
+</html>

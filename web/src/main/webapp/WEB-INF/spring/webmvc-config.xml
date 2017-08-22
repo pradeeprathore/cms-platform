@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd      
+	http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context-3.1.xsd                
+	 http://www.springframework.org/schema/mvc 	 http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!-- The controllers are autodetected POJOs labeled with the @Controller 
+		annotation. -->
+	<context:component-scan base-package="com.ascent.cms.web.controller" />
+
+	<!-- Turns on support for mapping requests to Spring MVC @Controller methods 
+		Also registers default Formatters and Validators for use across all @Controllers -->	
+	<mvc:annotation-driven />
+	
+	<mvc:interceptors>
+		<bean class="com.ascent.cms.web.interceptor.QueryParameterSettingInterceptor" />
+		<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+	        <property name="cacheSeconds" value="0"/>
+	        <property name="useExpiresHeader" value="true"/>
+	        <property name="useCacheControlHeader" value="true"/>
+	        <property name="useCacheControlNoStore" value="true"/>
+	   </bean>
+	</mvc:interceptors>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" />
+				<ref bean="marshallingHttpMessageConverter" />
+				<ref bean="stringHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean name="handlerMapping"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="useTrailingSlashMatch" value="false"></property>
+	</bean>
+
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter" />
+
+	<bean id="marshallingHttpMessageConverter"
+		class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+		<property name="marshaller" ref="xstreamMarshaller" />
+		<property name="unmarshaller" ref="xstreamMarshaller" />
+	</bean>
+
+	<bean id="jsonConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="defaultContentType" value="application/json" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+	</bean>
+
+	<bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"
+		p:autodetectAnnotations="true">
+		<!-- uncomment this to add aliases --><!-- <property name="aliases"> <props></props> </property> -->
+	</bean>
+	
+	
+		<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+</beans>

@@ -1,0 +1,18 @@
+<!--css-->
+<style type="text/css">
+body {font-family:Arial, Helvetica, sans-serif; font-size:12px; padding:0px; margin:0px; background:#000000;}
+table {font-size:12px; }
+.logo{display:block; background:url(images/logo_3.png) no-repeat 0 0; margin:8px 0 0 0; width:294px; height:58px;}
+.animatedButton2 {
+background: #4a6ecc; display:inline; padding: 5px 30px 5px 30px; font-family:Rockwell; font-size: 25px; line-height:100%; color:#FFFFFF; text-decoration:none;
+font-weight:normal;
+}
+p{font-size:13px; margin-top:0px; padding-top:7px; font-family:'Droid Sans'; line-height:150%;}
+h3{font-size:14px; font-weight:bold; margin-bottom:-5px; padding-bottom:0px; font-family:'Droid Sans';}
+.animatedButton2:hover{
+background:#2b468d; color:#d7dcea;
+}
+a { font-weight:bold; color:#2b468d; text-decoration:none; }
+a:hover {color:#4a6ecc;}
+.fs14 {font-size:14px;}
+</style>

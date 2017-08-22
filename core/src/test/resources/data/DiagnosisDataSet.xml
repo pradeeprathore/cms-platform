@@ -1,0 +1,99 @@
+<dataset>
+
+	<Role name="Patent" Definition_Type="SystemDefined" />
+	<Role name="Doctor" Definition_Type="SystemDefined" />
+	
+	<Country name="India" Id="1" />
+	<Country name="Pakistan" Id="2" />
+	
+	<State Id="1" name="Rajasthan" country_Id="1" />
+	<State Id="2" name="Gujarat" country_Id="1" />
+	<State Id="3" name="Balochistan" country_Id="2" />
+	<State Id="4" name="Punjab" country_Id="2" />
+	
+	<App_User Id="1" USER_TYPE="PATENT" User_Name="uttamDeora" Password="password"
+		First_Name="uttam" Middle_Name="singh" Last_Name="deora"
+		email="uttamdeora@gmail.com" Active="false" Enabled="false" />
+		
+	<App_User Id="2" USER_TYPE="PATENT" User_Name="kapilMathur" Password="password"
+		First_Name="kapil" Middle_Name="kumar" Last_Name="mathur"
+		email="uttamdeora@gmail.com" Active="false" Enabled="false"/>
+	
+	<App_User Id="3" USER_TYPE="PATENT" User_Name="uttamkDeora" Password="password"
+		First_Name="uttam" Middle_Name="kumar" Last_Name="deora"
+		email="uttamkdeora@gmail.com" Active="false" Enabled="false"/>
+		
+	<App_User Id="4" USER_TYPE="PATENT" User_Name="uttamchauhan" Password="password"
+		First_Name="uttam" Middle_Name="singh" Last_Name="chauhan"
+		email="uttamchauhan@gmail.com" Active="false" Enabled="false"/>
+		
+	<App_User Id="5" USER_TYPE="DOCTOR" User_Name="deependrarathore" Password="password"
+		First_Name="deependra" Last_Name="rathore"
+		email="deependrarathore@gmail.com" Active="false" Enabled="false" />
+		
+	<Patent Id="1" Date_Of_Birth="1980-07-20" />	
+	<Patent Id="2" Date_Of_Birth="1981-07-20" />
+	<Patent Id="3" Date_Of_Birth="1982-07-20" />
+	<Patent Id="4" Date_Of_Birth="1983-07-20" />
+	
+	<Doctor Id="5" />
+	
+	<Medical_Group Id="1" Name="Ortho" />
+	<Medical_Group Id="2" Name="Generic" />
+	<Medical_Group Id="3" Name="Dental" />
+	
+	<Diagnosis Id="1" Name="X-Ray" />
+	<Diagnosis Id="2" Name="CT Scan" />
+	
+	<Specialization Id="1" Name="Gynechologist" />
+	<Specialization Id="2" Name="Dentist" />
+	
+	<Diagnosis_Group_For_Specialization Id="1" Group_Id="1" Specialization_Id="1" />
+	<Diagnosis_Group_For_Specialization Id="2" Group_Id="2" Specialization_Id="2" />
+	<Diagnosis_Group_For_Specialization Id="3" Group_Id="3" Specialization_Id="2" />	
+	
+	<Diagnosis_In_Group Id="1" Group_Id="3" Diagnosis_Id="1" />
+	<Diagnosis_In_Group Id="2" Group_Id="3" Diagnosis_Id="2" />
+	
+	<Drug Id="1" Name="Crocin" />
+	<Drug Id="2" Name="Paracetamol" />
+	<Drug Id="3" Name="Jhandu Balm" />
+	<Drug Id="4" Name="CombiFlam" />
+	
+	
+	<Medicine Id="1" Drug_Id="1" Duration="3" />
+	<Medicine Id="2" Drug_Id="2" Duration="4" />
+	<Medicine Id="3" Drug_Id="3" Duration="6" />
+	<Medicine Id="4" Drug_Id="4" Duration="8" />
+	
+	<Medicine_In_Group Id="1" Group_Id="3" Medicine_Id="1" />
+	<Medicine_In_Group Id="2" Group_Id="3" Medicine_Id="2" />
+	<Medicine_In_Group Id="3" Group_Id="2" Medicine_Id="3" />
+	<Medicine_In_Group Id="4" Group_Id="1" Medicine_Id="4" />
+	
+	<Medicine_Group_For_Specialization Id="1" Group_Id="3" Specialization_Id="1" />
+	<Medicine_Group_For_Specialization Id="2" Group_Id="1" Specialization_Id="1" />
+	
+	<Complain Id="1" Name="Fever" />
+	<Complain Id="2" Name="Headache" />
+	<Complain Id="3" Name="Cold" />
+	
+	<Complain_In_Group Id="1" Group_Id="1" Complain_Id="1" />
+	<Complain_In_Group Id="2" Group_Id="1" Complain_Id="2" />
+	
+	<Complain_Group_For_Specialization Id="1" Group_Id="3" Specialization_Id="1" />
+	<Complain_Group_For_Specialization Id="2" Group_Id="1" Specialization_Id="1" />
+	
+	<Medical_Case id="1" name="FeverCase" Patent_Id="1" Doctor_Id="5" />
+	<Medical_Case id="2" name="DiabiteasCase" Patent_Id="1" Doctor_Id="5" />
+	
+	<Clinic Id="1" Name="batra hadapsar" />
+	<Clinic Id="2" Name="batra viman nagar" />
+	
+	<!-- 	
+	<Appointment Id="1" Start_Time="2013-12-11" Reason_For_Visit="regular checkup" Patent_Id="1" Doctor_Id="5" Clinic_Id="1" Status="Scheduled" 
+		Created_On="2013-12-11" Appointment_Date="2013-12-11"  />
+	<Appointment Id="2" Start_Time="2013-12-12" Reason_For_Visit="to show report" Patent_Id="2" Doctor_Id="5" Clinic_Id="2" Status="Scheduled" 
+		Created_On="2013-12-12" Appointment_Date="2013-12-11"  />
+	 -->
+</dataset>

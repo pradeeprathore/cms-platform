@@ -1,0 +1,46 @@
+<dataset>
+	<Medical_Group Id="1" Name="Ortho" />
+	<Medical_Group Id="2" Name="Generic" />
+	<Medical_Group Id="3" Name="Dental" />
+	<Medical_Group Id="4" Name="Cosmetic" />
+	
+	<Diagnosis Id="1" Name="X-Ray" />
+	<Diagnosis Id="2" Name="CT Scan" />
+	
+	<Specialization Id="1" Name="Gynechologist" />
+	<Specialization Id="2" Name="Dentist" />
+	
+	<Diagnosis_Group_For_Specialization Id="1" Group_Id="1" Specialization_Id="1" />
+	<Diagnosis_Group_For_Specialization Id="2" Group_Id="2" Specialization_Id="2" />
+	<Diagnosis_Group_For_Specialization Id="3" Group_Id="3" Specialization_Id="2" />	
+	
+	<Diagnosis_In_Group Id="1" Group_Id="3" Diagnosis_Id="1" />
+	<Diagnosis_In_Group Id="2" Group_Id="3" Diagnosis_Id="2" />
+	
+	<Drug Id="1" Name="Crocin" />
+	<Drug Id="2" Name="Paracetamol" />
+	<Drug Id="3" Name="Jhandu Balm" />
+	<Drug Id="4" Name="CombiFlam" />
+	
+	
+	<Medicine Id="1" Drug_Id="1" Duration="3" />
+	<Medicine Id="2" Drug_Id="2" Duration="6" />
+	<Medicine Id="3" Drug_Id="3" Duration="6" />
+	<Medicine Id="4" Drug_Id="4" Duration="6" />
+	
+	<Medicine_In_Group Id="1" Group_Id="3" Medicine_Id="3" Name="secondMG"/>
+	<Medicine_In_Group Id="2" Group_Id="3" Medicine_Id="3" Name="thirdMG"/>
+	<Medicine_In_Group Id="3" Group_Id="2" Medicine_Id="3" Name="fourthMG"/>
+	<Medicine_In_Group Id="4" Group_Id="1" Medicine_Id="3" Name="fifthMG"/>
+	
+	<Medicine_In_Group Id="5" Group_Id="4" Medicine_Id="2" Name="sixthUG"/>
+	<Medicine_In_Group Id="6" Group_Id="4" Medicine_Id="2" Name="seventUG"/>
+	<Medicine_In_Group Id="7" Group_Id="4" Medicine_Id="2" Name="eightsUG"/>
+	<Medicine_In_Group Id="8" Group_Id="4" Medicine_Id="2" Name="ninthUG"/>
+	
+	<Medicine_In_Group Id="9"  Group_Id="2" Medicine_Id="4" Name="sixthPG"/>
+	<Medicine_In_Group Id="10" Group_Id="2" Medicine_Id="4" Name="seventPG"/>
+	<Medicine_In_Group Id="11" Group_Id="2" Medicine_Id="4" Name="eightsPG"/>
+	<Medicine_In_Group Id="12" Group_Id="2" Medicine_Id="4" Name="ninthPG"/>
+	
+</dataset>

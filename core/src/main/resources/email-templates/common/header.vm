@@ -1,0 +1,16 @@
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" align="center" colspan="2" bgcolor="#eceae6" height="180px" style="border-bottom: 2px solid #e1dfdb;">
+       <div align="center" style="width:294px; margin-top:24px"><a href="${marsHome}" class="logo" style="margin-top:0px; text-align:center;" >
+	   <img src="${marsHome}/static/images/logo.png" width="300" height="74" border="0" style="display:block; visibility:visible" />
+	   </a></div>
+	   <table width="95%" border="0" cellspacing="0" cellpadding="0" style="margin-top:29px; margin-bottom:20px;">
+  <tr>
+    <td width="47%" valign="middle"><div align="center" style="height:3px; width:100%; background: #a5a3a1; background-image: -ms-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -moz-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -o-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #eceae6), color-stop(1, #a5a3a1));  background-image: -webkit-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: linear-gradient(to right, #eceae6 0%, #a5a3a1 100%); behavior: url(css/PIE.htc);"> </div></td>
+    <td width="6%" valign="middle"><div align="center" style="font-size:36px; font-family:Rockwell; background:#eceae6; padding:8px; width:200px;"></div>	</td>
+   <td width="47%" valign="middle"><div align="center" style="height:3px; width:100%; background: #eceae6; background-image: -ms-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -moz-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -o-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #a5a3a1), color-stop(1, #eceae6));  background-image: -webkit-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: linear-gradient(to right, #a5a3a1 0%, #eceae6 100%); behavior: url(css/PIE.htc);"> </div> </td>
+  </tr>
+</table>
+   </td>
+  </tr>
+</table>

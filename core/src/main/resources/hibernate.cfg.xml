@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		
+		
+					
+		<mapping class="com.ascent.cms.core.domain.State" />
+		<mapping class="com.ascent.cms.core.domain.Country" />
+		<mapping class="com.ascent.cms.core.domain.Address" />
+		<mapping class="com.ascent.cms.core.domain.PhoneNumber" />
+			<mapping class="com.ascent.cms.core.domain.Patrika" />
+		
+	
+		<mapping class="com.ascent.cms.core.domain.PaymentMode" />
+		
+		
+		<mapping class="com.ascent.cms.core.domain.user.Role" />
+		<mapping class="com.ascent.cms.core.domain.user.UserRole" />
+		<mapping class="com.ascent.cms.core.domain.user.AppUser" />
+		<mapping class="com.ascent.cms.core.domain.Login" />
+		<mapping class="com.ascent.cms.core.domain.PasswordResetRequest" />
+		
+	
+		
+		
+	
+		
+		<mapping class="com.ascent.cms.core.domain.AccessToken" />
+		
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,28 @@
+<!--Footer-->
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">
+	<tr>
+    	<td valign="top" align="center" bgcolor="#eceae6" style="border-top: 2px solid #e1dfdb;">
+<table width="95%" border="0" cellspacing="0" cellpadding="0" style="margin-top:15px; margin-bottom:10px; margin-top:30px;">
+  <tr>
+    <td width="47%" valign="middle"><div align="center" style="height:2px; width:100%; background: #a5a3a1; background-image: -ms-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -moz-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -o-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #eceae6), color-stop(1, #a5a3a1));  background-image: -webkit-linear-gradient(left, #eceae6 0%, #a5a3a1 100%); background-image: linear-gradient(to right, #eceae6 0%, #a5a3a1 100%); behavior: url(css/PIE.htc);"> </div></td>
+    <td width="6%" valign="middle"><img src="${marsHome}/static/images/em_2.png" border="0" align="absmiddle" style="background:#eceae6; padding-left:10px; padding-right:10px; display:block; visibility:visible" />  </td>
+   <td width="47%" valign="middle"><div align="center" style="height:2px; width:100%; background: #eceae6; background-image: -ms-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -moz-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -o-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #a5a3a1), color-stop(1, #eceae6));  background-image: -webkit-linear-gradient(left, #a5a3a1 0%, #eceae6 100%); background-image: linear-gradient(to right, #a5a3a1 0%, #eceae6 100%); behavior: url(css/PIE.htc);"> </div> </td>
+  </tr>
+</table>
+
+		<div align="center">
+Forgot your password? <a href="#">Get instructions on how to reset it.</a><br />
+If you have received this message in error and did not sign up for Mars, please click  <a href="${unSubscribe}"> here</a>.<br />
+mars.com<br />
+		</div>
+		
+		<br />	
+		<div align="center">
+&copy;2013 mars.com   |   All rights reserved<br />
+<a href="${privacyPolicy}">Privacy Policy</a>   |   <a href="${termsAndCondition}">Terms and Conditions</a>
+		</div>
+
+		</td>
+    </tr>
+
+</table>
