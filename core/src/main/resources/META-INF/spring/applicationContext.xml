@@ -83,8 +83,8 @@
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">false</prop>
-                <prop key="mail.smpt.from">admin@marspls.com</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smpt.from">pradeep.rathore2629@yahoo.com</prop>
             </props>
         </property>
     </bean>

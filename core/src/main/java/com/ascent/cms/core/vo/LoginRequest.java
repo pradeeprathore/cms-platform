@@ -15,11 +15,11 @@ public class LoginRequest
 
 	private Long userId;
 
-	//@NotBlank(message = "{loginRequest.userName.notBlank}")
+	@NotBlank(message = "{loginRequest.userName.notBlank}")
 	//@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{loginRequest.userName.email}")
 	private String userName;
 	
-	@NotBlank(message = "{loginRequest.mobile.notBlank}")
+	//@NotBlank(message = "{loginRequest.mobile.notBlank}")
 	//@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{loginRequest.userName.email}")
 	private String mobile;
 

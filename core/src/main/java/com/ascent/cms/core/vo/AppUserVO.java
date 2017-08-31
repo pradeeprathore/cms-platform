@@ -45,7 +45,7 @@ public class AppUserVO
 	@Alpha(message = "{patient.sex.regex}")
 	private String sex;
 
-	@NotNull(message = "{patient.dateOfBirth.notNull}")
+	//@NotNull(message = "{patient.dateOfBirth.notNull}")
 	@Past(message = "{patient.dateOfBirth.past}")
 	private Date dateOfBirth;
 

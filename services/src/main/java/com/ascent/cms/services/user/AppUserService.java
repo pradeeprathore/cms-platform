@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ascent.cms.core.constants.DetailMode;
 import com.ascent.cms.core.domain.AccessToken;
 import com.ascent.cms.core.domain.user.AppUser;
+import com.ascent.cms.core.util.EntityContext;
 import com.ascent.cms.core.vo.AppUserVO;
 import com.ascent.cms.core.vo.ListResponse;
 import com.ascent.cms.core.vo.SearchCriteria;
@@ -22,7 +23,7 @@ public interface AppUserService extends BaseService
 
 	public abstract AppUserVO getAppUserById(Long id, DetailMode detailMode);
 	
-	public abstract AppUserVO SaveUser(AppUserVO appUserVO);
+	public abstract AppUserVO SaveUser(AppUserVO appUserVO,EntityContext context);
 
 	public abstract AccessToken createAccessToken(AppUser appUser, AccessToken accessToken);
 

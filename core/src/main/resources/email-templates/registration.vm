@@ -12,7 +12,7 @@ a{text-decoration:none;}
 <!--Header-->
 <table width="600" border="0" align="center">
   <tr>
-    <td colspan="2" style="background:#000; color:#FFF; text-align:center; padding:10px; font-size:28px; font-weight:normal; text-decoration:none;">MARS</td>
+    <td colspan="2" style="background:#000; color:#FFF; text-align:center; padding:10px; font-size:28px; font-weight:normal; text-decoration:none;">"Shri Kshatriya Yuvak Sangh"</td>
   </tr>
    <tr>
    		<td colspan="2" style="background:#e6f1fb; padding:0 20px">
@@ -24,7 +24,7 @@ a{text-decoration:none;}
 <table width="596" border="0" align="center" style="background:#f4faff; margin-top:-2px; padding:30px; height:20px;">
 	<td width="100%">
     <p>Dear User,</p>
-    Welcome to MARS. You have been registered to MARS<br/>
+    Welcome to SHAG SHAKTI. You have been registered to SHAG SHAKTI<br/>
     <p>your Username is : ${userName} and Password is : ${password} </p>	
     Please click on below link to login.
     <p><a href="${marsHome}">Login</a></p>	

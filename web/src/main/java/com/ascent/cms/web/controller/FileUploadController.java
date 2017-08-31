@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ascent.cms.core.vo.ResponseFileVO;
 import com.ascent.cms.core.vo.UploadedFile;
+import com.ascent.cms.services.file.FileService;
 
 
 @Controller
@@ -17,13 +19,16 @@ import com.ascent.cms.core.vo.UploadedFile;
 public class FileUploadController extends BaseController
 {
 
+	@Autowired 
+	FileService fileService;
+
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<UploadedFile> saveQualificationFile(
+	public ResponseEntity<ResponseFileVO> saveQualificationFile(
 			@RequestParam(value = "file", required = true) MultipartFile file)
 	{
 		this.validate(file);
-		UploadedFile fileName = null;
-		return new ResponseEntity<UploadedFile>(fileName, HttpStatus.OK);
+		ResponseFileVO fileName = fileService.fileUpload(file);
+		return new ResponseEntity<ResponseFileVO>(fileName, HttpStatus.OK);
 	}
 }

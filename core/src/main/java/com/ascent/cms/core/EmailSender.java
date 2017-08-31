@@ -19,9 +19,11 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 public class EmailSender
 {
 
-	private static final String FROM_EMAIL = "admin@marspls.com";
-
-	private static final String MARS_HOME_URL = "http://marspls.com";
+	//private static final String FROM_EMAIL = "admin@marspls.com";
+	//private static final String FROM_EMAIL = "pradeep.rathore2629@gmail.com";
+	private static final String FROM_EMAIL = "pradeep.rathore2629@yahoo.com";
+	
+	private static final String MARS_HOME_URL = "http://shrikys.org";
 
 	private static final String UTF_8 = "utf-8";
 
@@ -58,7 +60,7 @@ public class EmailSender
 		EmailMessage emailMessage = new EmailMessage();
 
 		emailMessage.setFromEmail(FROM_EMAIL);
-		emailMessage.setSubject("Confirm Registration to MARS");
+		emailMessage.setSubject("Confirm Registration to Shag Sakati");
 		emailMessage.setTemplateName(REGISTRATION_TEMPLATE);
 		emailMessage.setToEmail(toEmail);
 
@@ -71,6 +73,7 @@ public class EmailSender
 			sendMail(emailMessage);
 		} catch (Exception e)
 		{
+			System.out.println(e);
 			throw new RuntimeException(e);
 		}
 	}

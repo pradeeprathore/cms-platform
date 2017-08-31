@@ -2,6 +2,7 @@ package com.ascent.cms.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -32,7 +33,7 @@ public class PatrikaServiceImpl extends BaseServiceImpl implements PatrikaServic
 	
 	@Override
 	public Patrika SavePatrika(Patrika patrika) {
-		
+		patrika.setCreatedOn(new  Date());
 		
 			
 			save(patrika);

@@ -157,7 +157,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>platform</finalName>
+		<finalName>shang-shakti</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

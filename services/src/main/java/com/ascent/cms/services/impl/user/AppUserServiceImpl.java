@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ascent.cms.core.EmailSender;
 import com.ascent.cms.core.ErrorCode;
 import com.ascent.cms.core.constants.DetailMode;
 import com.ascent.cms.core.constants.RoleName;
@@ -25,6 +26,7 @@ import com.ascent.cms.core.domain.user.AppUser;
 import com.ascent.cms.core.domain.user.Role;
 import com.ascent.cms.core.domain.user.UserRole;
 import com.ascent.cms.core.exception.InvalidArgumentException;
+import com.ascent.cms.core.util.EntityContext;
 import com.ascent.cms.core.vo.AppUserVO;
 import com.ascent.cms.core.vo.ListResponse;
 import com.ascent.cms.core.vo.SearchCriteria;
@@ -104,7 +106,7 @@ public class AppUserServiceImpl extends BaseServiceImpl implements AppUserServic
 
 
 	@Override
-	public AppUserVO SaveUser(AppUserVO appUserVO) {
+	public AppUserVO SaveUser(AppUserVO appUserVO,EntityContext context) {
 		validate(appUserVO);
 		AppUser appuser=toAppUser(appUserVO);
 		
@@ -114,11 +116,19 @@ public class AppUserServiceImpl extends BaseServiceImpl implements AppUserServic
 		Role role = roleDAO.findByName(RoleName.ROLE_USER);
 		appuser.assignRole(new UserRole(role));
 		appuser.setUserName(appUserVO.getMobile());
+		//========set mail id as for login
+		appuser.setEmail(appUserVO.getEmail());
 		appuser.setLoginCreated(false);
 		appuser.setActive(true);
 		appuser.setEnabled(true);
 		appuser.setCreatedOn(new Date());
+		try{
+			EmailSender sender=context.getEmailSender();
+			if(sender!=null){
+			sender.sendRegistrationEmail(appUserVO.getEmail(), tempPassword);}
 			appUserDAO.save(appuser);
+		}catch(Exception e){
+			System.out.println(e);}
 		
 		return appUserVO;
 	}

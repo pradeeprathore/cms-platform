@@ -107,7 +107,7 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService
 	public UserPrincipal login(LoginRequest loginRequest)
 	{
 
-		AppUser appUser = appUserDAO.findByUserName(loginRequest.getMobile());
+		AppUser appUser = appUserDAO.findByEmail(loginRequest.getUserName());
 		if (appUser == null)
 		{
 			throw new AuthenticationFailureException(ErrorCode.AuthConstants.INVALID_USER_NAME_OR_PASSWORD,

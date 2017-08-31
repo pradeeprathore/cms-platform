@@ -35,6 +35,7 @@ public class PatrikaController extends BaseController
 
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<Patrika> save(@RequestBody Patrika patrika)
 	{
 		
